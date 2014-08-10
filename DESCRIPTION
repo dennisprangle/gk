@@ -1,7 +1,7 @@
 Package: gk
 Type: Package
 Title: g-and-k distribution functions
-Version: 0.33
+Version: 0.34
 Date: 2014-08-10
 Author: Dennis Prangle
 Maintainer: Dennis Prangle <dennis.prangle@gmail.com>

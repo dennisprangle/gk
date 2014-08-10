@@ -37,7 +37,6 @@ gk2z.scalar <- function(x, theta) {
   theta2 <- theta
   theta2[1:2] <- c(0,1)
   ##Find an interval to search for z
-  ##NB WRITE UP NOTE JUSTIFYING THESE BOUNDS
   if (xx == 0) return(0)
   if (theta[5] >= 0) {
     if (xx > 0) {
@@ -65,6 +64,5 @@ gk2z.scalar <- function(x, theta) {
     }
   }        
   ##Numerically solve xx=qgk(z,theta2) for z
-  ##NB ARE DEFAULT PRECISION SETTINGS OK?
   uniroot(function(z){z2gk.scalar(z,theta2)-xx}, inter)$root
 }

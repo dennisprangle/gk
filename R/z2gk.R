@@ -19,7 +19,7 @@ z2gk <- function(z, A, B, g, k, c=0.8, theta=NULL){
   return(temp)
 }
 
-#' Transform one normal draws to g-and-k.
+#' Transform one standard normal draw to g-and-k.
 #'
 #' @param z A standard normal draw.
 #' @param theta Vector (A,B,c,g,k).

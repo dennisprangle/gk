@@ -47,7 +47,12 @@ gk2z.scalar <- function(x, theta) {
   } else {
     if (xx > 0) {
       xx1 <- exp(-theta[4])
-      xx1 <- (1 + theta[3]*(1-xx1)/(1+xx1))*2^theta[5]
+      if (xx1 < Inf) {
+          xx1 <-  (1-xx1)/(1+xx1)
+      } else {
+          xx1 <- -1
+      }
+      xx1 <- (1 + theta[3]*xx1)*2^theta[5]
       if (xx <= xx1) {
         inter <- c(0,2*xx)
       } else {
@@ -55,7 +60,12 @@ gk2z.scalar <- function(x, theta) {
       }
     } else {
       xx1 <- exp(theta[4])
-      xx1 <- -(1 + theta[3]*(1-xx1)/(1+xx1))*2^theta[5]
+      if (xx1 < Inf) {
+          xx1 <-  (1-xx1)/(1+xx1)
+      } else {
+          xx1 <- -1
+      }
+      xx1 <- -(1 + theta[3]*xx1)*2^theta[5]
       if (xx >= xx1) {
         inter <- c(2*xx / (1-theta[3]), 0)
       } else {

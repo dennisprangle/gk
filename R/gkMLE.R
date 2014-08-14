@@ -20,11 +20,10 @@ gk.mle <- function(x, theta0, details=FALSE, do.message=TRUE, ...) {
     check.params(theta=theta0)
     if (!is.numeric(x) || !is.vector(x)) stop("gk.mle requires x to be a numeric vector")
     tomin <- function(theta){
+        if(theta[2]<=0 || theta[4] <= 0.5) return(Inf)
         -sum(dgk(x, theta=c(theta[1:2],0.8,theta[3:4]), log=TRUE, do.message=FALSE))
     }
-    y <- optim(theta0, tomin, method="L-BFGS-B",
-               lower=c(-Inf, 0, -Inf, -0.5)+.Machine$double.eps,
-               upper=rep(Inf, 4), ...)
+    y <- optim(theta0, tomin, method="Nelder-Mead", ...)
     if (details) return(y)
     if (y$convergence != 0) warning(paste("gk.mle optimisation failed, error", y$convergence, y$message))
     return(y$par)

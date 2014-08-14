@@ -21,6 +21,7 @@ dgk <- function(x, A, B, g, k, c=0.8, theta=NULL, log=FALSE, do.message=TRUE){
 #' @return The derivative of the g-and-k quantile function at z.
 z2gk.Jacobian <- function(z, theta) {
   theta <- as.matrix(theta, ncol=5)
+  colnames(theta) <- NULL
   temp <- exp(-theta[,4]*z)
   infcases <- is.infinite(temp)
   tempA <- temp; tempB <- temp

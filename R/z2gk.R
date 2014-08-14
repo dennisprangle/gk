@@ -30,6 +30,11 @@ z2gk.scalar <- function(z, theta) {
   infcases <- is.infinite(temp)
   temp[!infcases] <- (1-temp[!infcases])/(1+temp[!infcases])
   temp[infcases] <- -1 ##Otherwise we get NaNs
-  temp <- theta[1] + theta[2] * (1+theta[3]*temp) * (1+z^2)^theta[5] * z
+  if (!is.infinite(z^2)) {
+      temp <- theta[1] + theta[2] * (1+theta[3]*temp) * (1+z^2)^theta[5] * z
+  } else {
+      ##This avoids wrong answers when z very large and k near its lower bound
+      temp <- theta[1] + theta[2] * (1+theta[3]*temp) * abs(z)^(1+2*theta[5])
+  }
   return(temp)
 }

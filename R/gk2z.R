@@ -33,6 +33,7 @@ gk2z <-function(x, A, B, g, k, c=0.8, theta=NULL) {
 gk2z.scalar <- function(x, theta) {
   ##Convert to standard scale and location
   xx <- (x - theta[1]) / theta[2]
+  if (xx == Inf) return(Inf)  
   xx <- as.numeric(xx)
   theta2 <- theta
   theta2[1:2] <- c(0,1)

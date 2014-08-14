@@ -33,47 +33,20 @@ gk2z <-function(x, A, B, g, k, c=0.8, theta=NULL) {
 gk2z.scalar <- function(x, theta) {
   ##Convert to standard scale and location
   xx <- (x - theta[1]) / theta[2]
-  if (xx == Inf) return(Inf)  
+  if (xx == 0) return(0)
+  if (xx == Inf) return(Inf)
+  if (xx == -Inf) return(-Inf)
   xx <- as.numeric(xx)
   theta2 <- theta
   theta2[1:2] <- c(0,1)
-  ##Find an interval to search for z
-  if (xx == 0) return(0)
-  if (theta[5] >= 0) {
-    if (xx > 0) {
+  ##Find an interval in which to search for z
+  if (xx > 0) {
       inter <- c(0,xx)
     } else {
-      inter <- c(xx/(1-theta[3]),0)
-    }
-  } else {
-    if (xx > 0) {
-      xx1 <- exp(-theta[4])
-      if (xx1 < Inf) {
-          xx1 <-  (1-xx1)/(1+xx1)
-      } else {
-          xx1 <- -1
-      }
-      xx1 <- (1 + theta[3]*xx1)*2^theta[5]
-      if (xx <= xx1) {
-        inter <- c(0,2*xx)
-      } else {
-        inter <- c(0, (2*xx)^(1/(1+2*theta[5])))
-      }
-    } else {
-      xx1 <- exp(theta[4])
-      if (xx1 < Inf) {
-          xx1 <-  (1-xx1)/(1+xx1)
-      } else {
-          xx1 <- -1
-      }
-      xx1 <- -(1 + theta[3]*xx1)*2^theta[5]
-      if (xx >= xx1) {
-        inter <- c(2*xx / (1-theta[3]), 0)
-      } else {
-        inter <- c(-(-2*xx/(1-theta[3]))^(1/(1+2*theta[5])), 0)
-      }
-    }
-  }        
+        inter <- c(xx/(1-theta[3]),0)
+  }
   ##Numerically solve xx=qgk(z,theta2) for z
-  uniroot(function(z){z2gk.scalar(z,theta2)-xx}, inter)$root
+  uniroot(function(z){z2gk.scalar(z,theta2)-xx},
+          interval=inter,
+          extendInt="upX")$root
 }

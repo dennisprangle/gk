@@ -34,6 +34,10 @@ function(A,B,g,k,c=0.8,theta){
         stop("gk function called with wrong number of parameters")
       }
     }
+  } else {
+      if (length(c) == 1 & length(A)>1) {
+          c <- rep(c, length(A))
+      }
   }
   if (length(B) != length(A) | length(c) != length(A) | length(g) != length(A) | length(k) != length(A)) stop("gk function called with parameters vectors of different lengths")
   if (any(B<=0)) stop("gk functions require B>0")

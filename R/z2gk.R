@@ -16,7 +16,7 @@ z2gk <- function(z, A, B, g, k, c=0.8, theta=NULL){
   temp[!infcases] <- (1-temp[!infcases])/(1+temp[!infcases])
   temp[infcases] <- -1 ##Otherwise we get NaNs
   temp <- params$A + params$B * (1+params$c*temp) * (1+z^2)^params$k * z
-  if (params$k < 0) temp[is.infinite(z)] <- z ##Otherwise we get NaNs
+  temp <- ifelse(params$k<0 & is.infinite(z), z, temp) ##Otherwise get NaNs
   return(temp)
 }
 

@@ -20,15 +20,8 @@ dgk <- function(x, A, B, g, k, c=0.8, theta=NULL, log=FALSE, do.message=TRUE){
 #' @param theta Vector (A,B,c,g,k).
 #' @return The derivative of the g-and-k quantile function at z.
 z2gk.Jacobian <- function(z, theta) {
-  theta <- as.matrix(theta, ncol=5)
+  theta <- matrix(theta, ncol=5)
   colnames(theta) <- NULL
-  temp <- exp(-theta[,4]*z)
-  infcases <- is.infinite(temp)
-  tempA <- temp; tempB <- temp
-  tempA[!infcases] <- (1-temp[!infcases])/(1+temp[!infcases])
-  tempA[infcases] <- -1
-  tempB[!infcases] <- temp[!infcases] / (1+temp[!infcases])^2
-  tempB[infcases] <- 0
-  temp <- (1/theta[,3] + tempA) * (1+(2*theta[,5]+1)*z*z) / (1+z*z) + 2*theta[,4]*z*tempB
-  theta[,2]*theta[,3]*temp*(1+z*z)^theta[,5]
+  temp <- (1 + theta[,3]*tanh(theta[,4]*z/2))*(1+(2*theta[,5]+1)*z*z) + (1+z*z)*z*theta[,4]*theta[,3]/(2*(cosh(theta[,4]*z/2)^2))
+  theta[,2] * (1+z*z)^(theta[,5]-1) * temp
 }

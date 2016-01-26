@@ -11,11 +11,7 @@
 z2gk <- function(z, A, B, g, k, c=0.8, theta=NULL){
   params <- check.params(A,B,g,k,c,theta)
   if (length(z) != length(params$A) & length(params$A) > 1) stop("Number of parameters supplied does not equal 1 or number of z values")
-  temp <- exp(-params$g*z)
-  infcases <- is.infinite(temp)
-  temp[!infcases] <- (1-temp[!infcases])/(1+temp[!infcases])
-  temp[infcases] <- -1 ##Otherwise we get NaNs
-  temp <- params$A + params$B * (1+params$c*temp) * (1+z^2)^params$k * z
+  temp <- params$A + params$B * (1+params$c*tanh(params$g*z/2)) * (1+z^2)^params$k * z
   temp <- ifelse(params$k<0 & is.infinite(z), z, temp) ##Otherwise get NaNs
   return(temp)
 }
@@ -26,15 +22,11 @@ z2gk <- function(z, A, B, g, k, c=0.8, theta=NULL){
 #' @param theta Vector (A,B,c,g,k).
 #' @return A g-and-k value.
 z2gk.scalar <- function(z, theta) {
-  temp <- exp(-theta[4]*z)
-  infcases <- is.infinite(temp)
-  temp[!infcases] <- (1-temp[!infcases])/(1+temp[!infcases])
-  temp[infcases] <- -1 ##Otherwise we get NaNs
   if (!is.infinite(z^2)) {
-      temp <- theta[1] + theta[2] * (1+theta[3]*temp) * (1+z^2)^theta[5] * z
+      temp <- theta[1] + theta[2] * (1+theta[3]*tanh(theta[4]*z/2)) * (1+z^2)^theta[5] * z
   } else {
       ##This avoids wrong answers when z very large and k near its lower bound
-      temp <- theta[1] + theta[2] * (1+theta[3]*temp) * abs(z)^(1+2*theta[5])
+      temp <- theta[1] + theta[2] * (1+theta[3]*tanh(theta[4]*z/2)) * abs(z)^(1+2*theta[5])
   }
   return(temp)
 }

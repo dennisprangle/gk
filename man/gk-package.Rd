@@ -8,8 +8,8 @@
 \tabular{ll}{
 Package: \tab gk\cr
 Type: \tab Package\cr
-Version: \tab 0.34\cr
-Date: \tab 2014-08-10\cr
+Version: \tab 0.35\cr
+Date: \tab 2016-01-26\cr
 License: \tab GPL-2\cr
 LazyLoad: \tab yes\cr
 }

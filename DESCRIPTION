@@ -1,10 +1,14 @@
 Package: gk
 Type: Package
-Title: g-and-k distribution functions
-Version: 0.35
-Date: 2016-01-26
-Author: Dennis Prangle
-Maintainer: Dennis Prangle <dennis.prangle@gmail.com>
-Description: g-and-k distribution functions
+Title: g-and-k and g-and-h Distribution Functions
+Version: 0.4.0
+Date: 2017-02-03
+Description: Functions for the g-and-k and generalised g-and-h distributions.
 License: GPL-2
-LazyLoad: yes
+Authors@R: person("Dennis", "Prangle", email="dennis.prangle@gmail.com", role=c("aut","cre","cph"))
+Imports:
+    stats
+Suggests:
+    testthat
+ByteCompile: true
+RoxygenNote: 5.0.1

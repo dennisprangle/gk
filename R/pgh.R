@@ -1,5 +1,7 @@
 #' Distribution function for the g-and-h distribution
 #'
+#' @keywords internal
+#' 
 #' @param q A quantiles.
 #' @param A A (location) parameter.
 #' @param B B (scale) parameter. Must be positive.

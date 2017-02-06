@@ -27,4 +27,5 @@ The derivative of the g-and-h Q function at p.
 \description{
 Derivative of the g-and-h Q function.
 }
+\keyword{internal}
 

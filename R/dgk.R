@@ -13,6 +13,8 @@ dgk = function(x, A, B, g, k, c=0.8, log=FALSE){
 #'
 #' Derivative of the g-and-k Q function.
 #'
+#' @keywords internal
+#' 
 #' @param z A vector of normal quantiles.
 #' @param A Vector of A (location) parameters.
 #' @param B Vector of B (scale) parameters. Must be positive.
@@ -69,6 +71,8 @@ Qgk_deriv = function(z, A, B, g, k, c=0.8, getR=FALSE) {
 #'
 #' Derivative of the g-and-k log(Q) function.
 #'
+#' @keywords internal
+#' 
 #' @param z A vector of normal quantiles.
 #' @param A Vector of A (location) parameters.
 #' @param B Vector of B (scale) parameters. Must be positive.

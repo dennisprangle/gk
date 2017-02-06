@@ -1,5 +1,7 @@
 #' Transform standard normal draws to g-and-h draws.
 #'
+#' @keywords internal
+#' 
 #' @param z Vector of N(0,1) draws.
 #' @param A Vector of location parameters.
 #' @param B Vector of scale parameters. Must be positive.

@@ -28,4 +28,5 @@ Check whether parameter choices produce a valid g-and-k or g-and-h distribution.
 This internal function performs the calculation using scalar parameter inputs.
  The exported function is a vectorised wrapper of this.
 }
+\keyword{internal}
 

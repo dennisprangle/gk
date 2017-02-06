@@ -13,6 +13,8 @@ dgh = function(x, A, B, g, h, c=0.8, log=FALSE){
 #'
 #' Derivative of the g-and-h Q function.
 #'
+#' @keywords internal
+#' 
 #' @param z A vector of normal quantiles.
 #' @param A Vector of A (location) parameters.
 #' @param B Vector of B (scale) parameters. Must be positive.
@@ -63,6 +65,8 @@ Qgh_deriv = function(z, A, B, g, h, c=0.8, getR=FALSE) {
 #' g-and-h Q log derivative
 #'
 #' Derivative of the g-and-h log(Q) function.
+#'
+#' @keywords internal
 #'
 #' @param z A vector of normal quantiles.
 #' @param A Vector of A (location) parameters.

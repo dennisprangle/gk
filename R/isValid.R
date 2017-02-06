@@ -2,6 +2,8 @@
 #'
 #' Check whether parameter choices produce a valid g-and-k or g-and-h distribution.
 #'
+#' @keywords internal
+#' 
 #' @param g A g parameter.
 #' @param k_or_h A k or h parameter.
 #' @param c A c parameter.

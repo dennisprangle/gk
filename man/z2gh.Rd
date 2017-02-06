@@ -25,4 +25,5 @@ A vector of g-and-h values.
 \description{
 Transform standard normal draws to g-and-h draws.
 }
+\keyword{internal}
 

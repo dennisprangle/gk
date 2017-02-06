@@ -18,7 +18,7 @@
 #'   The (generalised) g-and-h distribution is defined by its quantile function:
 #'  \deqn{x(p) = A + B [1 + c \tanh(gz/2)] z \exp(hz^2/2),}{x(p) = A + B [1 + c tanh(gz/2)] z exp(hz^2/2),}
 #'  where z is the standard normal quantile of p.
-#'  Parameter restrictions include \deqn{B>0} and \deqn{h \geq 0}{h>=0}. Typically c=0.8. For more
+#'  Parameter restrictions include \eqn{B>0} and \eqn{h \geq 0}{h>=0}. Typically c=0.8. For more
 #'  background information see the references.
 #'
 #' \code{rgh} and \code{qgh} use quick direct calculations. However \code{dgh} and \code{pgh} involve slower numerical inversion of the quantile function.

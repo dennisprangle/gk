@@ -16,9 +16,9 @@
 #' @param log If true the log density is returned.
 #' @details
 #'   The g-and-k distribution is defined by its quantile function:
-#'  \deqn{x(p) = A + B [1 + c ztanh(gz/2)] z(1 + z^2)^k,}{x(p) = A + B [1 + c tanh(gz/2)] z (1 + z^2)^k,}
+#'  \deqn{x(p) = A + B [1 + c \tanh(gz/2)] z(1 + z^2)^k,}{x(p) = A + B [1 + c tanh(gz/2)] z (1 + z^2)^k,}
 #'  where z is the standard normal quantile of p.
-#'  Parameter restrictions include \deqn{B>0} and \deqn{k > -0.5}. Typically c=0.8. For more
+#'  Parameter restrictions include \eqn{B>0} and \eqn{k \geq -0.5}{k >= -0.5}. Typically c=0.8. For more
 #'  background information see the references.
 #'
 #' \code{rgk} and \code{qgk} use quick direct calculations. However \code{dgk} and \code{pgk} involve slower numerical inversion of the quantile function.

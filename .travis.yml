@@ -1,8 +1,4 @@
 language: r
-<<<<<<< HEAD
 cache: packages
 env:
   - NOT_CRAN=true
-=======
-cache: packages
->>>>>>> master

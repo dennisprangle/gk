@@ -2,6 +2,8 @@
 #'
 #' Project a vector elementwise into a constrained region
 #'
+#' @keywords internal
+#'
 #' @param x Vector
 #' @param xmin Vector of lower bounds
 #' @param xmax Vector of upper bounds
@@ -14,6 +16,8 @@ project = function(x, xmin, xmax) {
 #' Calculate log sum exp safely
 #'
 #' Calculate log(exp(a)+exp(b)) avoiding numerical issues
+#'
+#' @keywords internal
 #'
 #' @param a Number
 #' @param b Number

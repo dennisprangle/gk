@@ -1,0 +1,6 @@
+bibentry(bibtype = "article",
+         title = "{gk}: An R Package for the g-and-k and
+Generalised g-and-h Distributions",
+         author = person("Dennis", "Prangle"),
+         journal = "arXiv preprint arXiv:1706.06889",
+         year = 2017)

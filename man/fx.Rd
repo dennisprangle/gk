@@ -23,4 +23,3 @@ fx()
 \references{
 D. Prangle gk: An R package for the g-and-k and generalised g-and-h distributions, 2017.
 }
-

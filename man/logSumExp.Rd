@@ -17,4 +17,3 @@ Value of log(exp(a)+exp(b))
 \description{
 Calculate log(exp(a)+exp(b)) avoiding numerical issues
 }
-

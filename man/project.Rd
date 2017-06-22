@@ -19,4 +19,3 @@ Vector of closest values to x which satisfy the bounds
 \description{
 Project a vector elementwise into a constrained region
 }
-

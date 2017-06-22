@@ -2,8 +2,8 @@
 % Please edit documentation in R/dgh.R, R/pgh.R, R/qgh.R, R/rgh.R
 \name{dgh}
 \alias{dgh}
-\alias{g-and-h}
 \alias{pgh}
+\alias{g-and-h}
 \alias{qgh}
 \alias{rgh}
 \title{g-and-h distribution functions}
@@ -69,4 +69,3 @@ pgh(x, A=3, B=1, g=2, h=0.5) ##Distribution function of x under g-and-h
 Haynes `Flexible distributions and statistical models in ranking and selection procedures, with applications' PhD Thesis QUT (1998)
 Rayner and MacGillivray `Numerical maximum likelihood estimation for the g-and-k and generalized g-and-h distributions' Statistics and Computing, 12, 57-75 (2002)
 }
-

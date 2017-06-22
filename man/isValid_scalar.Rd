@@ -29,4 +29,3 @@ This internal function performs the calculation using scalar parameter inputs.
  The exported function is a vectorised wrapper of this.
 }
 \keyword{internal}
-

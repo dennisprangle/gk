@@ -21,4 +21,3 @@ Converts octiles to robust estimate of location, scale, skewness and kurtosis as
 \references{
 C. C. Drovandi and A. N. Pettitt. Likelihood-free Bayesian estimation of multivariate quantile distributions. Computational Statistics & Data Analysis, 2011.
 }
-

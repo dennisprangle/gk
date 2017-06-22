@@ -58,4 +58,3 @@ out = fdsa(x, N=100, theta0=c(mean(x),sd(x),0,0), theta_min=c(-5,1E-5,-5,0), the
 \references{
 D. Prangle gk: An R package for the g-and-k and generalised g-and-h distributions, 2017.
 }
-

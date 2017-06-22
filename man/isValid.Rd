@@ -38,4 +38,3 @@ isValid(0:10, 0.5, c=0.9, model="gh")
 \references{
 D. Prangle and K. Peel. gk: An R package for the g-and-k and g-and-h distributions, in preparation.
 }
-

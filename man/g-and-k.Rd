@@ -2,8 +2,8 @@
 % Please edit documentation in R/dgk.R, R/pgk.R, R/qgk.R, R/rgk.R
 \name{dgk}
 \alias{dgk}
-\alias{g-and-k}
 \alias{pgk}
+\alias{g-and-k}
 \alias{qgk}
 \alias{rgk}
 \title{g-and-k distribution functions}
@@ -69,4 +69,3 @@ pgk(x, A=3, B=1, g=2, k=0.5) ##Distribution function of x under g-and-k
 Haynes `Flexible distributions and statistical models in ranking and selection procedures, with applications' PhD Thesis QUT (1998)
 Rayner and MacGillivray `Numerical maximum likelihood estimation for the g-and-k and generalized g-and-h distributions' Statistics and Computing, 12, 57-75 (2002)
 }
-

@@ -26,4 +26,3 @@ orderstats(100, c(25,50,75))
 \references{
 Brian Ripley `Stochastic Simulation' Wiley (1987)
 }
-

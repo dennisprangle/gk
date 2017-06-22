@@ -49,4 +49,3 @@ out = mcmc(x, N=1000, theta0=c(mean(x),sd(x),0,0), Sigma0=0.1*diag(4))
 D. Prangle gk: An R package for the g-and-k and generalised g-and-h distributions, 2017.
 H. Haario, E. Saksman, and J. Tamminen. An adaptive Metropolis algorithm. Bernoulli, 2001.
 }
-

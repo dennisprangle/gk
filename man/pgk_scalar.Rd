@@ -32,4 +32,3 @@ This internal function performs the calculation assuming scalar inputs.
  The exported function is a vectorised wrapper of this.
 }
 \keyword{internal}
-

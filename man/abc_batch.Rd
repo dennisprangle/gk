@@ -27,4 +27,3 @@ Outputs a list containing:
 If v is not supplied then variances are estimated here and returned.
 (The idea is that this is done for the first batch, and these values are reused from then on.)
 }
-

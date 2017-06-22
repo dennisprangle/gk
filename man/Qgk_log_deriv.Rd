@@ -26,4 +26,3 @@ The derivative of the g-and-k Q function at p.
 Derivative of the g-and-k log(Q) function.
 }
 \keyword{internal}
-

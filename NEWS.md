@@ -1,6 +1,6 @@
 # Version 0.5.0 (21st June 2017)
 
-* Added functions for inference: `abc`, `mcmc`, `spsa`.
+* Added functions for inference: `abc`, `mcmc`, `fdsa`.
 
 * Added `fx` function which provides a demo analysis of exchange rate data.
 

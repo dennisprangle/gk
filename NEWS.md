@@ -1,3 +1,7 @@
+# Version 0.6.0 (23rd June 2017)
+
+* Dev version including FDSA inference with k (or h) parameters; one for each end of tail.
+
 # Version 0.5.0 (21st June 2017)
 
 * Added functions for inference: `abc`, `mcmc`, `spsa`.

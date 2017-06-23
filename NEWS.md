@@ -1,3 +1,7 @@
+# Version 0.5.1 (23rd June 2017)
+
+* Fixed minor typos and bugs
+
 # Version 0.5.0 (21st June 2017)
 
 * Added functions for inference: `abc`, `mcmc`, `fdsa`.

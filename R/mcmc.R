@@ -44,6 +44,7 @@ improper_uniform_log_density = function(theta) {
 #' out = mcmc(x, N=1000, theta0=c(mean(x),sd(x),0,0), Sigma0=0.1*diag(4))
 #' @export
 mcmc = function(x, N, model=c("gk", "gh"), logB=FALSE, get_log_prior=improper_uniform_log_density, theta0, Sigma0, t0=100, epsilon=1E-6, silent=FALSE, plotEvery=100) {
+    if (!is.numeric(x)) stop("x must be numeric (a vector of observations)")
     if (!silent) { oldask = par(ask=FALSE) } ##Don't ask before progress plots
     output = matrix(nrow=N+1, ncol=4)
     colnames(output) = c("A", ifelse(logB, "log B", "B"), "g", ifelse(model[1]=="gk", "k", "h"))

@@ -61,6 +61,7 @@ logSumExp = function(a, b) {
 fdsa = function(x, N, model=c("gk", "gh"), logB=FALSE, theta0, batch_size=100, alpha=1, gamma=0.49, a0=1, c0=NULL, A=100,
     theta_min=c(-Inf,ifelse(logB, -Inf, 1E-5),-Inf,0), theta_max=c(Inf,Inf,Inf,Inf),
     silent=FALSE, plotEvery=100) {
+    if (!is.numeric(x)) stop("x must be numeric (a vector of observations)")
     if (!silent) { oldask = par(ask=FALSE) } ##Don't ask before progress plots
     cnames = c("A", ifelse(logB, "log B", "B"), "g", ifelse(model[1]=="gk", "k", "h"), "estimated log likelihood")
     if (model[1] == "gk") {

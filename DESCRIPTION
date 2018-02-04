@@ -2,7 +2,7 @@ Package: gk
 Type: Package
 Title: g-and-k and g-and-h Distribution Functions
 Version: 0.5.1
-Date: 2017-06-23
+Date: 2018-02-04
 Description: Functions for the g-and-k and generalised g-and-h distributions.
 License: GPL-2
 Authors@R: person("Dennis", "Prangle", email="dennis.prangle@gmail.com", role=c("aut","cre","cph"))

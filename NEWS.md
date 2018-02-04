@@ -1,4 +1,4 @@
-# Version 0.5.1 (23rd June 2017)
+# Version 0.5.1 (4th February 2018)
 
 * Fixed minor typos and bugs
 

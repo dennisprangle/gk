@@ -7,7 +7,7 @@
 pgh_scalar(q, A, B, g, h, c = 0.8, zscale = FALSE)
 }
 \arguments{
-\item{q}{A quantiles.}
+\item{q}{Quantiles.}
 
 \item{A}{A (location) parameter.}
 

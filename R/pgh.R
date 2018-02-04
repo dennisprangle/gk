@@ -2,7 +2,7 @@
 #'
 #' @keywords internal
 #' 
-#' @param q A quantiles.
+#' @param q Quantiles.
 #' @param A A (location) parameter.
 #' @param B B (scale) parameter. Must be positive.
 #' @param g g parameter.

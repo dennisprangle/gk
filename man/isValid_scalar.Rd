@@ -4,8 +4,13 @@
 \alias{isValid_scalar}
 \title{Check validity of g-and-k or g-and-h parameters}
 \usage{
-isValid_scalar(g, k_or_h, c = 0.8, model = c("gk", "gh"),
-  initial_z = seq(-1, 1, 0.2))
+isValid_scalar(
+  g,
+  k_or_h,
+  c = 0.8,
+  model = c("gk", "generalised_gh", "tukey_gh", "gh"),
+  initial_z = seq(-1, 1, 0.2)
+)
 }
 \arguments{
 \item{g}{A g parameter.}
@@ -14,7 +19,8 @@ isValid_scalar(g, k_or_h, c = 0.8, model = c("gk", "gh"),
 
 \item{c}{A c parameter.}
 
-\item{model}{Whether to check the g-and-k or g-and-h model.}
+\item{model}{Which model to check: "gk", "generalised_gh" or "tukey_gh".
+For backwards compatibility, "gh" acts the same as "generalised_gh".}
 
 \item{initial_z}{Vector of initial z values to use in optimisation.}
 }

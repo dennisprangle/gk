@@ -4,7 +4,7 @@
 \alias{z2gh}
 \title{Transform standard normal draws to g-and-h draws.}
 \usage{
-z2gh(z, A, B, g, h, c = 0.8)
+z2gh(z, A, B, g, h, c = 0.8, type = c("generalised", "tukey"))
 }
 \arguments{
 \item{z}{Vector of N(0,1) draws.}
@@ -18,6 +18,8 @@ z2gh(z, A, B, g, h, c = 0.8)
 \item{h}{Vector of h parameters.}
 
 \item{c}{Vector of c parameters. Often fixed at 0.8 which is the default.}
+
+\item{type}{Can be "generalised" (default) or "tukey".}
 }
 \value{
 A vector of g-and-h values.

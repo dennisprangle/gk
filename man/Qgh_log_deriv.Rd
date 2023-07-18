@@ -4,7 +4,7 @@
 \alias{Qgh_log_deriv}
 \title{g-and-h Q log derivative}
 \usage{
-Qgh_log_deriv(z, A, B, g, h, c = 0.8)
+Qgh_log_deriv(z, A, B, g, h, c = 0.8, type)
 }
 \arguments{
 \item{z}{A vector of normal quantiles.}
@@ -18,6 +18,8 @@ Qgh_log_deriv(z, A, B, g, h, c = 0.8)
 \item{h}{Vector of k parameters. Must be positive.}
 
 \item{c}{Vector of c parameters. Often fixed at 0.8 which is the default.}
+
+\item{type}{Can be "generalised" (default) or "tukey".}
 }
 \value{
 The derivative of the g-and-h Q function at p.

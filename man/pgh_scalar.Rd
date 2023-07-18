@@ -4,7 +4,16 @@
 \alias{pgh_scalar}
 \title{Distribution function for the g-and-h distribution}
 \usage{
-pgh_scalar(q, A, B, g, h, c = 0.8, zscale = FALSE)
+pgh_scalar(
+  q,
+  A,
+  B,
+  g,
+  h,
+  c = 0.8,
+  zscale = FALSE,
+  type = c("generalised", "tukey")
+)
 }
 \arguments{
 \item{q}{Quantiles.}
@@ -20,6 +29,8 @@ pgh_scalar(q, A, B, g, h, c = 0.8, zscale = FALSE)
 \item{c}{c parameter. Often fixed at 0.8 which is the default.}
 
 \item{zscale}{When true returns the N(0,1) quantile of the cdf (needed by dgh).}
+
+\item{type}{Can be "generalised" (default) or "tukey".}
 }
 \value{
 The cumulative probability.

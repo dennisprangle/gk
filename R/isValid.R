@@ -7,18 +7,22 @@
 #' @param g A g parameter.
 #' @param k_or_h A k or h parameter.
 #' @param c A c parameter.
-#' @param model Whether to check the g-and-k or g-and-h model.
+#' @param model Which model to check: "gk", "generalised_gh" or "tukey_gh".
+#' For backwards compatibility, "gh" acts the same as "generalised_gh".
 #' @param initial_z Vector of initial z values to use in optimisation.
 #' @details
 #'  This internal function performs the calculation using scalar parameter inputs.
 #'  The exported function is a vectorised wrapper of this.
 #' @return Logical vector denoting whether each parameter combination is valid
-isValid_scalar = function(g, k_or_h, c=0.8, model=c("gk","gh"), initial_z = seq(-1,1,0.2)) {
-    if (model[1] == "gk") {
-        tomin = function(z) Qgk_deriv(z, 0, 1, g, k_or_h, c, getR=TRUE)
-    } else {
-        tomin = function(z) Qgh_deriv(z, 0, 1, g, k_or_h, c, getR=TRUE)
-    }
+isValid_scalar = function(g, k_or_h, c=0.8, model=c("gk", "generalised_gh","tukey_gh", "gh"), initial_z = seq(-1,1,0.2)) {
+    model = match.arg(model)
+    tomin = switch(
+        model,
+        "gk" = function(z) Qgk_deriv(z, 0, 1, g, k_or_h, c, getR=TRUE),
+        "gh" = function(z) Qgh_deriv(z, 0, 1, g, k_or_h, c, getR=TRUE, type="generalised"),
+        "generalised_gh" = function(z) Qgh_deriv(z, 0, 1, g, k_or_h, c, getR=TRUE, type="generalised"),
+        "tukey_gh" = function(z) Qgh_deriv(z, 0, 1, g, k_or_h, c, getR=TRUE, type="tukey")
+    )
     positive_minimum = sapply(initial_z, function(z0) (stats::optim(z0, tomin, method="BFGS")$value > 0)==TRUE)
     return(all(positive_minimum))
 }
@@ -30,7 +34,8 @@ isValid_scalar = function(g, k_or_h, c=0.8, model=c("gk","gh"), initial_z = seq(
 #' @param g Vector of g parameters.
 #' @param k_or_h Vector of k or h parameters.
 #' @param c Vector of c parameters.
-#' @param model Whether to check the g-and-k or g-and-h model.
+#' @param model Which model to check: "gk", "generalised_gh" or "tukey_gh".
+#' For backwards compatibility, "gh" acts the same as "generalised_gh".
 #' @param initial_z Vector of initial z values to use in each optimisation.
 #' @details
 #' This function tests whether parameter choices provide a valid distribution.
@@ -42,8 +47,10 @@ isValid_scalar = function(g, k_or_h, c=0.8, model=c("gk","gh"), initial_z = seq(
 #' @references D. Prangle and K. Peel. gk: An R package for the g-and-k and g-and-h distributions, in preparation.
 #' @examples
 #' isValid(0:10, -0.5)
-#' isValid(0:10, 0.5, c=0.9, model="gh")
+#' isValid(0:10, 0.5, c=0.9, model="generalised_gh")
+#' isValid(0:10, 0.5, model="tukey_gh")
 #' @export
-isValid = function(g, k_or_h, c=0.8, model=c("gk","gh"), initial_z = seq(-1,1,0.2)) {
+isValid = function(g, k_or_h, c=0.8, model=c("gk", "generalised_gh","tukey_gh", "gh"), initial_z = seq(-1,1,0.2)) {
+    model = match.arg(model)
     mapply(isValid_scalar, g, k_or_h, c, MoreArgs=list(model=model, initial_z=initial_z))
 }

@@ -4,7 +4,16 @@
 \alias{Qgh_deriv}
 \title{g-and-h Q derivative}
 \usage{
-Qgh_deriv(z, A, B, g, h, c = 0.8, getR = FALSE)
+Qgh_deriv(
+  z,
+  A,
+  B,
+  g,
+  h,
+  c = 0.8,
+  getR = FALSE,
+  type = c("generalised", "tukey")
+)
 }
 \arguments{
 \item{z}{A vector of normal quantiles.}
@@ -20,6 +29,8 @@ Qgh_deriv(z, A, B, g, h, c = 0.8, getR = FALSE)
 \item{c}{Vector of c parameters. Often fixed at 0.8 which is the default.}
 
 \item{getR}{When \code{TRUE} returns a faster partial calculation that has the same sign as the derivative (Used in checking parameter validity.)}
+
+\item{type}{Can be "generalised" (default) or "tukey".}
 }
 \value{
 The derivative of the g-and-h Q function at p.

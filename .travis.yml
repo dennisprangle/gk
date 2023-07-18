@@ -1,4 +1,0 @@
-language: r
-cache: packages
-env:
-  - NOT_CRAN=true

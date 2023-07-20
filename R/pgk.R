@@ -29,5 +29,5 @@ pgk_scalar = function(q, A, B, g, k, c=0.8, zscale=FALSE){
 #' @rdname g-and-k
 #' @export
 pgk = function (q, A, B, g, k, c=0.8, zscale=FALSE) {
-    mapply(pgk_scalar, q, A, B, g, k, c, zscale)
+    mapply(pgk_scalar, q, A, B, g, k, c, MoreArgs=list(zscale=zscale))
 }

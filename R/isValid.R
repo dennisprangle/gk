@@ -14,7 +14,7 @@
 #'  This internal function performs the calculation using scalar parameter inputs.
 #'  The exported function is a vectorised wrapper of this.
 #' @return Logical vector denoting whether each parameter combination is valid
-isValid_scalar = function(g, k_or_h, c=0.8, model=c("gk", "generalised_gh","tukey_gh", "gh"), initial_z = seq(-1,1,0.2)) {
+isValid_scalar = function(g, k_or_h, c=0.8, model=c("gk", "generalised_gh", "tukey_gh", "gh"), initial_z = seq(-1,1,0.2)) {
     model = match.arg(model)
     tomin = switch(
         model,
@@ -44,13 +44,12 @@ isValid_scalar = function(g, k_or_h, c=0.8, model=c("gk", "generalised_gh","tuke
 #' and returning \code{TRUE} if the minimum is positive.
 #' It is possible that a local minimum is found, so it is recommended to use multiple optimisation starting points, and to beware that false positive may still result!
 #' @return Logical vector denoting whether each parameter combination is valid.
-#' @references D. Prangle and K. Peel. gk: An R package for the g-and-k and g-and-h distributions, in preparation.
 #' @examples
 #' isValid(0:10, -0.5)
 #' isValid(0:10, 0.5, c=0.9, model="generalised_gh")
 #' isValid(0:10, 0.5, model="tukey_gh")
 #' @export
-isValid = function(g, k_or_h, c=0.8, model=c("gk", "generalised_gh","tukey_gh", "gh"), initial_z = seq(-1,1,0.2)) {
+isValid = function(g, k_or_h, c=0.8, model=c("gk", "generalised_gh", "tukey_gh", "gh"), initial_z = seq(-1,1,0.2)) {
     model = match.arg(model)
     mapply(isValid_scalar, g, k_or_h, c, MoreArgs=list(model=model, initial_z=initial_z))
 }

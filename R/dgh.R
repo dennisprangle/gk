@@ -35,7 +35,8 @@ dgh = function(x, A, B, g, h, c=0.8, log=FALSE, type=c("generalised", "tukey")){
 #' @return The derivative of the g-and-h Q function at p.
 Qgh_deriv = function(z, A, B, g, h, c=0.8, getR=FALSE, type=c("generalised", "tukey")) {
     ##Essentially this function calculates
-    ##B*exp(h*z^2/2)*((1+c*tanh(g*z/2))*(1+h*z^2) + c*g*z/(2*cosh(g*z/2)^2))
+    ##B*exp(h*z^2/2)*((1+c*tanh(g*z/2))*(1+h*z^2) + c*g*z/(2*cosh(g*z/2)^2)) (generalised)
+    ##B*exp(h*z^2/2)*(exp(g*z) + z*h*(exp(g*z)-1)/g) (Tukey)
     ##But treats some edge cases carefully
 
     type = match.arg(type)
@@ -110,7 +111,8 @@ Qgh_deriv = function(z, A, B, g, h, c=0.8, getR=FALSE, type=c("generalised", "tu
 #' @return The derivative of the g-and-h Q function at p.
 Qgh_log_deriv = function(z, A, B, g, h, c=0.8, type) {
     ##Essentially this function calculates
-    ##log(B)+(h*z^2)/2+log((1+c*tanh(g*z/2))*(1+h*z^2) + c*g*z/(2*cosh(g*z/2)^2))
+    ##log(B)+(h*z^2)/2+log((1+c*tanh(g*z/2))*(1+h*z^2) + c*g*z/(2*cosh(g*z/2)^2)) (generalised)
+    ##log(B)+(h*z^2)/2+log(exp(g*z) + z*h*(exp(g*z)-1)/g) (Tukey)
     ##But treats some edge cases carefully
 
     ##Recycle inputs to same length as output

@@ -52,6 +52,24 @@ test_that("zscale works as expected", {
     )
 })
 
+test_that("Density with log=TRUE equals log of density", {
+    expect_equal(
+        log(dgk(1:5, A=0, B=1, g=1, k=1)),
+        dgk(1:5, A=0, B=1, g=1, k=1, log=TRUE),
+        tolerance=1E-5
+    )
+    expect_equal(
+        log(dgh(1:5, A=0, B=1, g=1, h=1, type="generalised")),
+        dgh(1:5, A=0, B=1, g=1, h=1, log=TRUE, type="generalised"),
+        tolerance=1E-5
+    )
+    expect_equal(
+        log(dgh(1:5, A=0, B=1, g=1, h=1, type="tukey")),
+        dgh(1:5, A=0, B=1, g=1, h=1, log=TRUE, type="tukey"),
+        tolerance=1E-5
+    )
+})
+
 test_that("Integral of PDF is CDF", {
     expect_equal(
         integrate(dgk, 0, 1, A=0, B=1, g=1, k=1)$value,

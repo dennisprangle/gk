@@ -68,7 +68,8 @@ Finite difference stochastic approximation (FDSA) inference for the g-and-k or g
 \examples{
 set.seed(1)
 x = rgk(10, A=3, B=1, g=2, k=0.5) ##An unusually small dataset for fast execution of this example
-out = fdsa(x, N=100, theta0=c(mean(x),sd(x),0,1E-5), theta_min=c(-5,1E-5,-5,1E-5), theta_max=c(5,5,5,5))
+out = fdsa(x, N=100, theta0=c(mean(x),sd(x),0,1E-5), theta_min=c(-5,1E-5,-5,1E-5),
+    theta_max=c(5,5,5,5))
 }
 \references{
 D. Prangle gk: An R package for the g-and-k and generalised g-and-h distributions, 2017.

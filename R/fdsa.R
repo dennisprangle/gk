@@ -58,7 +58,8 @@ logSumExp = function(a, b) {
 #' @examples
 #' set.seed(1)
 #' x = rgk(10, A=3, B=1, g=2, k=0.5) ##An unusually small dataset for fast execution of this example
-#' out = fdsa(x, N=100, theta0=c(mean(x),sd(x),0,1E-5), theta_min=c(-5,1E-5,-5,1E-5), theta_max=c(5,5,5,5))
+#' out = fdsa(x, N=100, theta0=c(mean(x),sd(x),0,1E-5), theta_min=c(-5,1E-5,-5,1E-5),
+#'     theta_max=c(5,5,5,5))
 #' @export
 fdsa = function(x, N, model=c("gk", "generalised_gh", "tukey_gh", "gh"), logB=FALSE, theta0, batch_size=100, alpha=1, gamma=0.49, a0=1, c0=NULL, A=100,
     theta_min=c(-Inf,ifelse(logB, -Inf, 1E-5),-Inf,1E-5), theta_max=c(Inf,Inf,Inf,Inf),

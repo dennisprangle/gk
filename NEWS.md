@@ -1,3 +1,7 @@
+# Version 0.6 (20th July 2023)
+
+* Added support for Tukey's g-and-h distribution.
+
 # Version 0.5.1 (4th February 2018)
 
 * Fixed minor typos and bugs
@@ -10,7 +14,7 @@
 
 # Version 0.4.0 (2nd Feb 2017)
 
-* Complete rewrite to make code more efficient and stable. This involves changes to the argument required by the functions.
+* Complete rewrite to make code more efficient and stable. This involves changes to the arguments required by the functions.
 
 * Added support for the generalised g-and-h distribution.
 

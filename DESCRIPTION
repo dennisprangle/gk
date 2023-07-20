@@ -1,8 +1,8 @@
 Package: gk
 Type: Package
 Title: g-and-k and g-and-h Distribution Functions
-Version: 0.5.1
-Date: 2018-02-04
+Version: 0.6.0
+Date: 2023-07-20
 Description: Functions for the g-and-k and generalised g-and-h distributions.
 License: GPL-2
 Authors@R: person("Dennis", "Prangle", email="dennis.prangle@gmail.com", role=c("aut","cre","cph"))
@@ -19,4 +19,4 @@ ByteCompile: true
 Encoding: UTF-8
 URL: https://github.com/dennisprangle/gk
 BugReports: https://github.com/dennisprangle/gk/issues
-RoxygenNote: 6.0.1
+RoxygenNote: 7.2.3

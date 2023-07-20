@@ -35,7 +35,8 @@ logSumExp = function(a, b) {
 #'
 #' @param x Vector of observations.
 #' @param N number of iterations to perform.
-#' @param model Whether to fit gk or gh model.
+#' @param model Which model to check: "gk", "generalised_gh" or "tukey_gh".
+#' For backwards compatibility, "gh" acts the same as "generalised_gh".
 #' @param logB When true, the second parameter is log(B) rather than B.
 #' @param theta0 Vector of initial value for 4 parameters.
 #' @param batch_size Mini-batch size.
@@ -45,6 +46,7 @@ logSumExp = function(a, b) {
 #' @param c0 Multiplicative finite difference step tuning parameter (or vector of 4 values).
 #' @param A Additive step size tuning parameter.
 #' @param theta_min Vector of minimum values for each parameter.
+#' Note: for \code{model=="tukey_gh"} it's usually advisable to rule out h=0 as this case sometimes causes optimisation problems.
 #' @param theta_max Vector of maximum values for each parameter.
 #' @param silent When \code{FALSE} (the default) a progress bar and intermediate results plots are shown.
 #' @param plotEvery How often to plot the results if \code{silent==FALSE}.
@@ -56,25 +58,33 @@ logSumExp = function(a, b) {
 #' @examples
 #' set.seed(1)
 #' x = rgk(10, A=3, B=1, g=2, k=0.5) ##An unusually small dataset for fast execution of this example
-#' out = fdsa(x, N=100, theta0=c(mean(x),sd(x),0,0), theta_min=c(-5,1E-5,-5,0), theta_max=c(5,5,5,5))
+#' out = fdsa(x, N=100, theta0=c(mean(x),sd(x),0,1E-5), theta_min=c(-5,1E-5,-5,1E-5), theta_max=c(5,5,5,5))
 #' @export
-fdsa = function(x, N, model=c("gk", "gh"), logB=FALSE, theta0, batch_size=100, alpha=1, gamma=0.49, a0=1, c0=NULL, A=100,
-    theta_min=c(-Inf,ifelse(logB, -Inf, 1E-5),-Inf,0), theta_max=c(Inf,Inf,Inf,Inf),
+fdsa = function(x, N, model=c("gk", "generalised_gh", "tukey_gh", "gh"), logB=FALSE, theta0, batch_size=100, alpha=1, gamma=0.49, a0=1, c0=NULL, A=100,
+    theta_min=c(-Inf,ifelse(logB, -Inf, 1E-5),-Inf,1E-5), theta_max=c(Inf,Inf,Inf,Inf),
     silent=FALSE, plotEvery=100) {
+    model = match.arg(model)
+    #if (model == "tukey_gh") stop("fdsa not implemented for tukey g-and-h yet")
     if (!is.numeric(x)) stop("x must be numeric (a vector of observations)")
     if (!silent) { oldask = par(ask=FALSE) } ##Don't ask before progress plots
-    cnames = c("A", ifelse(logB, "log B", "B"), "g", ifelse(model[1]=="gk", "k", "h"), "estimated log likelihood")
-    if (model[1] == "gk") {
+    cnames = c("A", ifelse(logB, "log B", "B"), "g", ifelse(model=="gk", "k", "h"), "estimated log likelihood")
+    if (model == "gk") {
         if (logB) {
             get_log_densities = function(x, theta) dgk(batch, theta[1], exp(theta[2]), theta[3], theta[4], log=TRUE)
         } else {
             get_log_densities = function(x, theta) dgk(batch, theta[1], theta[2], theta[3], theta[4], log=TRUE)
         }
+    # } else if (model == "tukey_gh") {
+    #     if (logB) {
+    #         get_log_densities = function(x, theta) dgh(batch, theta[1], exp(theta[2]), theta[3], theta[4], log=TRUE, type="tukey")
+    #     } else {
+    #         get_log_densities = function(x, theta) dgh(batch, theta[1], theta[2], theta[3], theta[4], log=TRUE, type="tukey")
+    #     }
     } else {
         if (logB) {
-            get_log_densities = function(x, theta) dgh(batch, theta[1], exp(theta[2]), theta[3], theta[4], log=TRUE)
+            get_log_densities = function(x, theta) dgh(batch, theta[1], exp(theta[2]), theta[3], theta[4], log=TRUE, type="generalised")
         } else {
-            get_log_densities = function(x, theta) dgh(batch, theta[1], theta[2], theta[3], theta[4], log=TRUE)
+            get_log_densities = function(x, theta) dgh(batch, theta[1], theta[2], theta[3], theta[4], log=TRUE, type="generalised")
         }
     }
     nobs = length(x)

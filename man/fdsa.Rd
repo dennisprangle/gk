@@ -4,17 +4,31 @@
 \alias{fdsa}
 \title{Finite difference stochastic approximation inference}
 \usage{
-fdsa(x, N, model = c("gk", "gh"), logB = FALSE, theta0, batch_size = 100,
-  alpha = 1, gamma = 0.49, a0 = 1, c0 = NULL, A = 100,
-  theta_min = c(-Inf, ifelse(logB, -Inf, 1e-05), -Inf, 0),
-  theta_max = c(Inf, Inf, Inf, Inf), silent = FALSE, plotEvery = 100)
+fdsa(
+  x,
+  N,
+  model = c("gk", "generalised_gh", "tukey_gh", "gh"),
+  logB = FALSE,
+  theta0,
+  batch_size = 100,
+  alpha = 1,
+  gamma = 0.49,
+  a0 = 1,
+  c0 = NULL,
+  A = 100,
+  theta_min = c(-Inf, ifelse(logB, -Inf, 1e-05), -Inf, 1e-05),
+  theta_max = c(Inf, Inf, Inf, Inf),
+  silent = FALSE,
+  plotEvery = 100
+)
 }
 \arguments{
 \item{x}{Vector of observations.}
 
 \item{N}{number of iterations to perform.}
 
-\item{model}{Whether to fit gk or gh model.}
+\item{model}{Which model to check: "gk", "generalised_gh" or "tukey_gh".
+For backwards compatibility, "gh" acts the same as "generalised_gh".}
 
 \item{logB}{When true, the second parameter is log(B) rather than B.}
 
@@ -32,7 +46,8 @@ fdsa(x, N, model = c("gk", "gh"), logB = FALSE, theta0, batch_size = 100,
 
 \item{A}{Additive step size tuning parameter.}
 
-\item{theta_min}{Vector of minimum values for each parameter.}
+\item{theta_min}{Vector of minimum values for each parameter.
+Note: for \code{model=="tukey_gh"} it's usually advisable to rule out h=0 as this case sometimes causes optimisation problems.}
 
 \item{theta_max}{Vector of maximum values for each parameter.}
 
@@ -53,7 +68,7 @@ Finite difference stochastic approximation (FDSA) inference for the g-and-k or g
 \examples{
 set.seed(1)
 x = rgk(10, A=3, B=1, g=2, k=0.5) ##An unusually small dataset for fast execution of this example
-out = fdsa(x, N=100, theta0=c(mean(x),sd(x),0,0), theta_min=c(-5,1E-5,-5,0), theta_max=c(5,5,5,5))
+out = fdsa(x, N=100, theta0=c(mean(x),sd(x),0,1E-5), theta_min=c(-5,1E-5,-5,1E-5), theta_max=c(5,5,5,5))
 }
 \references{
 D. Prangle gk: An R package for the g-and-k and generalised g-and-h distributions, 2017.

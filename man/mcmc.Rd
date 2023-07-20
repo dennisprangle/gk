@@ -4,16 +4,27 @@
 \alias{mcmc}
 \title{Markov chain Monte Carlo inference}
 \usage{
-mcmc(x, N, model = c("gk", "gh"), logB = FALSE,
-  get_log_prior = improper_uniform_log_density, theta0, Sigma0, t0 = 100,
-  epsilon = 1e-06, silent = FALSE, plotEvery = 100)
+mcmc(
+  x,
+  N,
+  model = c("gk", "generalised_gh", "tukey_gh", "gh"),
+  logB = FALSE,
+  get_log_prior = improper_uniform_log_density,
+  theta0,
+  Sigma0,
+  t0 = 100,
+  epsilon = 1e-06,
+  silent = FALSE,
+  plotEvery = 100
+)
 }
 \arguments{
 \item{x}{Vector of observations.}
 
 \item{N}{Number of MCMC steps to perform.}
 
-\item{model}{Whether to fit g-and-k or g-and-h model.}
+\item{model}{Which model to check: "gk", "generalised_gh" or "tukey_gh".
+For backwards compatibility, "gh" acts the same as "generalised_gh".}
 
 \item{logB}{When true, the second parameter is log(B) rather than B.}
 

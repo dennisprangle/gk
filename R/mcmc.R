@@ -24,7 +24,8 @@ improper_uniform_log_density = function(theta) {
 #'
 #' @param x Vector of observations.
 #' @param N Number of MCMC steps to perform.
-#' @param model Whether to fit g-and-k or g-and-h model.
+#' @param model Which model to check: "gk", "generalised_gh" or "tukey_gh".
+#' For backwards compatibility, "gh" acts the same as "generalised_gh".
 #' @param logB When true, the second parameter is log(B) rather than B.
 #' @param get_log_prior A function with one argument (corresponding to a vector of 4 parameters e.g. A,B,g,k) returning the log prior density. This should ensure the parameters are valid - i.e. return -Inf for invalid parameters - as the \code{mcmc} code will not check this.
 #' @param theta0 Vector of initial value for 4 parameters.
@@ -43,22 +44,29 @@ improper_uniform_log_density = function(theta) {
 #' x = rgk(10, A=3, B=1, g=2, k=0.5) ##An unusually small dataset for fast execution of this example
 #' out = mcmc(x, N=1000, theta0=c(mean(x),sd(x),0,0), Sigma0=0.1*diag(4))
 #' @export
-mcmc = function(x, N, model=c("gk", "gh"), logB=FALSE, get_log_prior=improper_uniform_log_density, theta0, Sigma0, t0=100, epsilon=1E-6, silent=FALSE, plotEvery=100) {
+mcmc = function(x, N, model=c("gk", "generalised_gh", "tukey_gh", "gh"), logB=FALSE, get_log_prior=improper_uniform_log_density, theta0, Sigma0, t0=100, epsilon=1E-6, silent=FALSE, plotEvery=100) {
+    model = match.arg(model)
     if (!is.numeric(x)) stop("x must be numeric (a vector of observations)")
     if (!silent) { oldask = par(ask=FALSE) } ##Don't ask before progress plots
     output = matrix(nrow=N+1, ncol=4)
-    colnames(output) = c("A", ifelse(logB, "log B", "B"), "g", ifelse(model[1]=="gk", "k", "h"))
-    if (model[1] == "gk") {
+    colnames(output) = c("A", ifelse(logB, "log B", "B"), "g", ifelse(model=="gk", "k", "h"))
+    if (model == "gk") {
         if (logB) {
             get_log_likelihood = function(theta) sum(dgk(x, theta[1], exp(theta[2]), theta[3], theta[4], log=TRUE))
         } else {
             get_log_likelihood = function(theta) sum(dgk(x, theta[1], theta[2], theta[3], theta[4], log=TRUE))
         }
+    } else if (model == "tukey_gh") {
+        if (logB) {
+            get_log_likelihood = function(theta) sum(dgh(x, theta[1], exp(theta[2]), theta[3], theta[4], log=TRUE, type="tukey"))
+        } else {
+            get_log_likelihood = function(theta) sum(dgh(x, theta[1], theta[2], theta[3], theta[4], log=TRUE, type="tukey"))
+        }
     } else {
         if (logB) {
-            get_log_likelihood = function(theta) sum(dgh(x, theta[1], exp(theta[2]), theta[3], theta[4], log=TRUE))
+            get_log_likelihood = function(theta) sum(dgh(x, theta[1], exp(theta[2]), theta[3], theta[4], log=TRUE, type="generalised"))
         } else {
-            get_log_likelihood = function(theta) sum(dgh(x, theta[1], theta[2], theta[3], theta[4], log=TRUE))
+            get_log_likelihood = function(theta) sum(dgh(x, theta[1], theta[2], theta[3], theta[4], log=TRUE, type="generalised"))
         }
     }
     output[1,] = theta0

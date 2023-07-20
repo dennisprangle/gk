@@ -17,7 +17,8 @@ momentEstimates = function(octiles) {
 #'
 #' @param x Vector of observations.
 #' @param N Number of iterations to perform.
-#' @param model Whether to fit g-and-k or g-and-h model.
+#' @param model Which model to check: "gk", "generalised_gh" or "tukey_gh".
+#' For backwards compatibility, "gh" acts the same as "generalised_gh".
 #' @param logB When true, the second parameter is log(B) rather than B.
 #' @param rprior A function with single argument, n, which returns a matrix with n rows consisting of samples from the prior distribution for 4 parameters e.g. (A,B,g,k).
 #' @param M Number of simulations to accept.
@@ -39,46 +40,61 @@ momentEstimates = function(octiles) {
 #' rprior = function(n) { matrix(runif(4*n,0,10), ncol=4) }
 #' abc(x, N=1E4, rprior=rprior, M=100)
 #' @export
-abc = function(x, N, model=c("gk", "gh"), logB=FALSE, rprior, M, sumstats=c("all order statistics", "octiles", "moment estimates"), silent=FALSE) {
+abc = function(x, N, model=c("gk", "generalised_gh", "tukey_gh", "gh"), logB=FALSE, rprior, M, sumstats=c("all order statistics", "octiles", "moment estimates"), silent=FALSE) {
     nobs = length(x)
-    ##Define simStats: a function to simulate one set of summary statistics
-    ##and sobs: the observed summary statistics
-    if (sumstats[1] == "all order statistics") {
+    model = match.arg(model)
+    sumstats = match.arg(sumstats)
+    ## Define simStats: a function to simulate one set of summary statistics
+    ## and sobs: the observed summary statistics
+    ## TODO: refactor this as there are many options now
+    if (sumstats == "all order statistics") {
         sobs = sort(x)
-        if (model[1] == "gk") {
+        if (model == "gk") {
             if (logB) {
                 simStats = function(theta) sort(rgk(nobs, A=theta[1], B=exp(theta[2]), g=theta[3], k=theta[4]))
             } else {
                 simStats = function(theta) sort(rgk(nobs, A=theta[1], B=theta[2], g=theta[3], k=theta[4]))
             }
+        } else if (model == "tukey_gh") {
+            if (logB) {
+                simStats = function(theta) sort(rgh(nobs, A=theta[1], B=exp(theta[2]), g=theta[3], h=theta[4], type="tukey"))
+            } else {
+                simStats = function(theta) sort(rgh(nobs, A=theta[1], B=theta[2], g=theta[3], h=theta[4], type="tukey"))
+            }
         } else {
             if (logB) {
-                simStats = function(theta) sort(rgh(nobs, A=theta[1], B=exp(theta[2]), g=theta[3], h=theta[4]))
+                simStats = function(theta) sort(rgh(nobs, A=theta[1], B=exp(theta[2]), g=theta[3], h=theta[4], type="generalised"))
             } else {
-                simStats = function(theta) sort(rgh(nobs, A=theta[1], B=theta[2], g=theta[3], h=theta[4]))
+                simStats = function(theta) sort(rgh(nobs, A=theta[1], B=theta[2], g=theta[3], h=theta[4], type="generalised"))
             }
         }
     } else {
         indices = round(nobs*(1:7)/8)
         if (length(unique(indices)) < 7) stop("Too few observations to calculate distinct octiles")
-        if (sumstats[1] == "octiles") {
+        if (sumstats == "octiles") {
             sobs = sort(x)[indices]
-            if (model[1] == "gk") {
+            if (model == "gk") {
                 if (logB) {
                     simStats = function(theta) qgk(orderstats(nobs, indices), A=theta[1], B=exp(theta[2]), g=theta[3], k=theta[4])
                 } else {
                     simStats = function(theta) qgk(orderstats(nobs, indices), A=theta[1], B=theta[2], g=theta[3], k=theta[4])
                 }
+            } else if (model == "tukey_gh") {
+                if (logB) {
+                    simStats = function(theta) qgh(orderstats(nobs, indices), A=theta[1], B=exp(theta[2]), g=theta[3], h=theta[4], type="tukey")
+                } else {
+                    simStats = function(theta) qgh(orderstats(nobs, indices), A=theta[1], B=theta[2], g=theta[3], h=theta[4], type="tukey")
+                }
             } else {
                 if (logB) {
-                    simStats = function(theta) qgh(orderstats(nobs, indices), A=theta[1], B=exp(theta[2]), g=theta[3], h=theta[4])
+                    simStats = function(theta) qgh(orderstats(nobs, indices), A=theta[1], B=exp(theta[2]), g=theta[3], h=theta[4], type="generalised")
                 } else {
-                    simStats = function(theta) qgh(orderstats(nobs, indices), A=theta[1], B=theta[2], g=theta[3], h=theta[4])
+                    simStats = function(theta) qgh(orderstats(nobs, indices), A=theta[1], B=theta[2], g=theta[3], h=theta[4], type="generalised")
                 }
             }
         } else {
             sobs = momentEstimates(sort(x)[indices])
-            if (model[1] == "gk") {
+            if (model == "gk") {
                 if (logB) {
                     simStats = function(theta) {
                         momentEstimates(qgk(orderstats(nobs, indices), A=theta[1], B=exp(theta[2]), g=theta[3], k=theta[4])) }
@@ -87,15 +103,23 @@ abc = function(x, N, model=c("gk", "gh"), logB=FALSE, rprior, M, sumstats=c("all
                         momentEstimates(qgk(orderstats(nobs, indices), A=theta[1], B=theta[2], g=theta[3], k=theta[4]))
                     }
                 }
+            } else if (model == "tukey_gh") {
+                if (logB) {
+                    simStats = function(theta) {
+                        momentEstimates(qgh(orderstats(nobs, indices), A=theta[1], B=exp(theta[2]), g=theta[3], h=theta[4], type="tukey")) }
+                } else {
+                    simStats = function(theta) {
+                        momentEstimates(qgh(orderstats(nobs, indices), A=theta[1], B=theta[2], g=theta[3], h=theta[4], type="tukey"))
+                    }
+                }
             } else {
                 if (logB) {
                     simStats = function(theta) {
-                        momentEstimates(qgh(orderstats(nobs, indices), A=theta[1], B=exp(theta[2]), g=theta[3], h=theta[4])) }
+                        momentEstimates(qgh(orderstats(nobs, indices), A=theta[1], B=exp(theta[2]), g=theta[3], h=theta[4], type="generalised")) }
                 } else {
                     simStats = function(theta) {
-                        momentEstimates(qgh(orderstats(nobs, indices), A=theta[1], B=theta[2], g=theta[3], h=theta[4]))
+                        momentEstimates(qgh(orderstats(nobs, indices), A=theta[1], B=theta[2], g=theta[3], h=theta[4], type="generalised"))
                     }
-
                 }
             }
         }

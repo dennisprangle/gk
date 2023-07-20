@@ -4,16 +4,24 @@
 \alias{abc}
 \title{Approximate Bayesian computation inference}
 \usage{
-abc(x, N, model = c("gk", "gh"), logB = FALSE, rprior, M,
+abc(
+  x,
+  N,
+  model = c("gk", "generalised_gh", "tukey_gh", "gh"),
+  logB = FALSE,
+  rprior,
+  M,
   sumstats = c("all order statistics", "octiles", "moment estimates"),
-  silent = FALSE)
+  silent = FALSE
+)
 }
 \arguments{
 \item{x}{Vector of observations.}
 
 \item{N}{Number of iterations to perform.}
 
-\item{model}{Whether to fit g-and-k or g-and-h model.}
+\item{model}{Which model to check: "gk", "generalised_gh" or "tukey_gh".
+For backwards compatibility, "gh" acts the same as "generalised_gh".}
 
 \item{logB}{When true, the second parameter is log(B) rather than B.}
 
